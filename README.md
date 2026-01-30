@@ -10,7 +10,7 @@ Este repositorio contiene la configuración para cuatro herramientas de asistenc
 |-------------|----------|------------|-------------|
 | **.claude/** | 46 | Original | Configuración base con skills, agents y reglas |
 | **.opencode/** | 32 | Copia 1:1 | Skills individuales idénticos a .claude |
-| **.github-copilot/** | 10 | Mergeo | Agents especializados que combinan múltiples skills |
+| **.github/** | 10 | Mergeo | Agents especializados que combinan múltiples skills |
 | **.agent/** | 29 | Rules + Skills | Configuración estándar de la industria (Antigravity format) |
 
 ---
@@ -45,9 +45,9 @@ Este repositorio contiene la configuración para cuatro herramientas de asistenc
     └── [26 skills - copia idéntica de .claude/]
 ```
 
-### .github-copilot/ (10 archivos)
+### .github/ (10 archivos - GitHub Copilot)
 ```
-.github-copilot/
+.github/
 ├── copilot-instructions.md
 └── agents/
     ├── architect.agent.md       ← java-design-patterns
@@ -106,7 +106,7 @@ Este repositorio contiene la configuración para cuatro herramientas de asistenc
 
 ### Rules (3 archivos)
 
-| Rule | .claude/ | .opencode/ | .github-copilot/ | .agent/ |
+| Rule | .claude/ | .opencode/ | .github/ | .agent/ |
 |------|----------|------------|------------------|---------|
 | coding-style | ✅ rules/ | ✅ AGENTS.md | ✅ copilot-instructions.md | ✅ rules/ |
 | git-workflow | ✅ rules/ | ✅ AGENTS.md | ✅ copilot-instructions.md | ✅ rules/ |
@@ -114,7 +114,7 @@ Este repositorio contiene la configuración para cuatro herramientas de asistenc
 
 ### Skills (26 totales)
 
-| Skill | .claude/ | .opencode/ | .github-copilot/ | .agent/ |
+| Skill | .claude/ | .opencode/ | .github/ | .agent/ |
 |-------|----------|------------|------------------|---------|
 | java-coding | ✅ | ✅ | ✅ (agents) @java-backend | ✅ |
 | springboot-coding | ✅ | ✅ | ✅ (agents) @java-backend | ✅ |
@@ -145,7 +145,7 @@ Este repositorio contiene la configuración para cuatro herramientas de asistenc
 
 ### Agents (10 totales)
 
-| Agente | .claude/ | .opencode/ | .github-copilot/ | .agent/ |
+| Agente | .claude/ | .opencode/ | .github/ | .agent/ |
 |--------|----------|------------|------------------|---------|
 | architect | ✅ agents/architect.md | ✅ agents/architect.agent.md | ✅ agents/architect.agent.md | ✅ (skills) |
 | debugger | ✅ agents/debugger.md | ✅ agents/debugger.agent.md | ✅ agents/debugger.agent.md | ✅ (skills) |
