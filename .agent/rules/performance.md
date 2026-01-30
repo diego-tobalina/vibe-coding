@@ -1,64 +1,62 @@
-# Reglas de Performance
+---
+name: performance
+description: Performance optimization guidelines for databases, caching, memory, and algorithms. Apply when optimizing code or reviewing performance.
+mode: model_decision
+---
 
-## Gestión de Contexto
+# Performance Rules
 
-- Mantener archivos de memoria actualizados
-- Limpiar contexto innecesario periódicamente
-- Priorizar información relevante para la tarea actual
+## Database Performance
 
-## Base de Datos
+- Use pagination for list queries (default: 20 items)
+- Avoid N+1 queries (use JOIN FETCH or batch loading)
+- Index frequently queried columns
+- Use projections when full entity not needed
 
-- Usar paginación para listas grandes
-- Evitar N+1 queries (JOIN FETCH)
-- Indexar campos frecuentemente buscados
-- Limitar resultados de queries
+## Caching Strategy
 
-```java
-// ❌ MAL: Todos los registros
-List<User> users = userRepository.findAll();
+- Cache frequently accessed, rarely changed data
+- Set appropriate TTL (Time To Live)
+- Invalidate cache on writes
+- Use cache-aside pattern
 
-// ✅ BIEN: Paginado
-Page<User> users = userRepository.findAll(PageRequest.of(0, 20));
-```
+## Memory Management
 
-## Caching
+- Avoid loading large collections into memory
+- Use streaming for large datasets
+- Close resources properly (try-with-resources)
+- Be mindful of object creation in loops
 
-- Cachear datos que cambian poco
-- TTL apropiado según el dato
-- Invalidar cache cuando cambian datos
+## Algorithm Complexity
 
-```java
-@Cacheable("users")
-public User findById(Long id) { }
+- Prefer O(1) or O(log n) when possible
+- Document O(n²) or worse with justification
+- Consider data structure choice (HashMap vs TreeMap)
 
-@CacheEvict(value = "users", key = "#user.id")
-public User update(User user) { }
-```
+## Frontend Performance (Core Web Vitals)
 
-## Async
+| Metric | Target | Description |
+|--------|--------|-------------|
+| **LCP** | < 2.5s | Largest Contentful Paint |
+| **FID** | < 100ms | First Input Delay |
+| **CLS** | < 0.1 | Cumulative Layout Shift |
+| **FCP** | < 1.8s | First Contentful Paint |
 
-- Operaciones I/O intensivas en async
-- No bloquear thread principal
-- Timeouts en llamadas externas
+## Profiling Before Optimizing
 
-```java
-@Async
-public CompletableFuture<Report> generateReport() { }
+- Measure before optimizing
+- Identify actual bottlenecks
+- Don't optimize prematurely
 
-// Con timeout
-restTemplate.setReadTimeout(5000);
-```
+**Profiling Tools:**
+- Java: VisualVM, JProfiler, Async-profiler
+- Node.js: Clinic.js, Chrome DevTools
+- Frontend: Lighthouse, Chrome DevTools Performance tab
 
-## Logging
+## Lazy Loading
 
-- Nivel apropiado (DEBUG, INFO, WARN, ERROR)
-- No loggear en loops calientes
-- Incluir contexto relevante
-
-```java
-// ✅ BIEN
-log.info("Created user: id={}", user.getId());
-
-// ❌ MAL
-log.info("Created user: " + user.toString()); // String concat
-```
+- Load data only when needed
+- Use pagination for UI lists
+- Implement infinite scroll over load-all
+- Lazy load images with loading="lazy"
+- Lazy load components with dynamic imports

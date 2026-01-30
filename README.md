@@ -1,163 +1,161 @@
-# 🤖 Agent Configuration System
+# Configuración de Agentes LLM
 
-Sistema modular de configuración para agentes de IA de código (Claude Code, Gemini CLI, Cursor, Copilot, etc.). Inspirado en [everything-claude-code](https://github.com/affaan-m/everything-claude-code) y [antigravity-awesome-skills](https://github.com/sickn33/antigravity-awesome-skills).
+Este repositorio contiene la configuración para cuatro herramientas de asistencia de código:
 
-## ✨ Características
+---
 
-- 🔄 **Ejecución persistente estilo RALPH** - Auto-recuperación y aprendizaje continuo
-- ☕ **Orientado a Java/Spring Boot** - Skills y reglas específicas
-- 📝 **Sistema de memoria** - CONTEXT, LEARNINGS, QUEUE, LOGS
-- 🧩 **13 agentes especializados** - Planificación, revisión, debugging, etc.
-- 📚 **15 skills** - Patrones reutilizables por lenguaje
-- ⚡ **7 workflows** - Slash commands para tareas comunes
+## 📊 Resumen por Herramienta
 
-## 📁 Estructura
+| Herramienta | Archivos | Estrategia | Descripción |
+|-------------|----------|------------|-------------|
+| **.claude/** | 46 | Original | Configuración base con skills, agents y reglas |
+| **.opencode/** | 32 | Copia 1:1 | Skills individuales idénticos a .claude |
+| **.github-copilot/** | 10 | Mergeo | Agents especializados que combinan múltiples skills |
+| **.agent/** | 29 | Rules + Skills | Configuración estándar de la industria (Antigravity format) |
 
+---
+
+## 📁 Estructura de Archivos
+
+### .claude/ (46 archivos)
+```
+.claude/
+├── CLAUDE.md
+├── agents/
+│   ├── architect.md
+│   ├── debugger.md
+│   └── doc-writer.md
+├── rules/
+│   ├── coding-style.md
+│   ├── git-workflow.md
+│   └── performance.md
+└── skills/
+    └── [26 skills con SKILL.md]
+```
+
+### .opencode/ (32 archivos)
+```
+.opencode/
+├── AGENTS.md
+├── agents/
+│   ├── architect.agent.md
+│   ├── debugger.agent.md
+│   └── doc-writer.agent.md
+└── skills/
+    └── [26 skills - copia idéntica de .claude/]
+```
+
+### .github-copilot/ (10 archivos)
+```
+.github-copilot/
+├── copilot-instructions.md
+└── agents/
+    ├── architect.agent.md       ← java-design-patterns
+    ├── code-review.agent.md     ← review + security-check + refactor
+    ├── debugger.agent.md        ← troubleshooting + build-fix
+    ├── designer.agent.md        ← theme-factory
+    ├── devops.agent.md          ← docker
+    ├── doc-writer.agent.md
+    ├── java-backend.agent.md    ← java-coding + springboot + postgres + mongo + redis + testing + logging + api-rest + tdd
+    ├── nodejs-backend.agent.md  ← nodejs-coding + postgres + mongo + redis + tdd
+    └── react-frontend.agent.md  ← react-coding + frontend-patterns + react-testing + frontend-design + e2e + vercel-best-practices
+```
+
+### .agent/ (29 archivos - Google Antigravity)
 ```
 .agent/
-├── AGENTS.md              # Sistema principal (RALPH-style)
-├── CONTEXT.md             # Mapa del proyecto
-├── LEARNINGS.md           # Base de conocimiento
-├── QUEUE.md               # Estado de tareas
-├── LOGS.md                # Registro de ejecución
-├── tasks/                 # Cola de tareas
-├── agents/                # 13 agentes especializados
-│   ├── planner.md
-│   ├── architect.md
-│   ├── java-specialist.md
-│   ├── tdd-guide.md
-│   ├── code-reviewer.md
-│   ├── security-reviewer.md
-│   ├── build-error-resolver.md
-│   ├── refactor-cleaner.md
-│   ├── doc-updater.md
-│   ├── task-generator.md
-│   ├── react-specialist.md
-│   ├── knowledge-updater.md
-│   └── e2e-runner.md
+├── GEMINI.md                # Reglas globales
+├── rules/
+│   ├── coding-style.md      # Always On
+│   ├── git-workflow.md      # Model Decision
+│   └── performance.md       # Model Decision
 ├── skills/
-│   ├── java/              # 6 skills Java
-│   │   ├── coding-standards.md
-│   │   ├── spring-patterns.md
-│   │   ├── maven-gradle.md
-│   │   ├── testing-java.md
-│   │   ├── lombok-mapstruct.md
-│   │   └── redis-caching.md
-│   ├── frontend/          # 2 skills Frontend
-│   │   ├── react-patterns.md
-│   │   └── typescript-standards.md
-│   └── general/           # 7 skills generales
-│       ├── clean-code.md
-│       ├── git-workflow.md
-│       ├── api-design.md
-│       ├── tdd-workflow.md
-│       ├── systematic-debugging.md
-│       ├── github-actions.md
-│       └── conversation-memory.md
-├── rules/                 # 5 reglas obligatorias
-│   ├── security.md
-│   ├── coding-style.md
-│   ├── testing.md
-│   ├── java-rules.md
-│   └── performance.md
-├── workflows/             # 7 slash commands
-│   ├── tdd.md
-│   ├── plan.md
-│   ├── code-review.md
-│   ├── build-fix.md
-│   ├── refactor.md
-│   ├── generate-task.md
-│   └── add-knowledge.md
-└── templates/             # Plantillas
-    ├── task.md
-    ├── adr.md
-    └── learning.md
+│   ├── api-rest-design/
+│   ├── build-fix/
+│   ├── docker/
+│   ├── e2e/
+│   ├── frontend-design/
+│   ├── frontend-patterns/
+│   ├── java-coding/
+│   ├── java-design-patterns/
+│   ├── java-testing/
+│   ├── logging/
+│   ├── mongodb-patterns/
+│   ├── nodejs-coding/
+│   ├── postgres-patterns/
+│   ├── prd/
+│   ├── ralph/
+│   ├── react-coding/
+│   ├── react-testing/
+│   ├── redis-patterns/
+│   ├── refactor/
+│   ├── review/
+│   ├── security-check/
+│   ├── springboot-coding/
+│   ├── tdd/
+│   ├── theme-factory/
+│   ├── troubleshooting/
+│   └── vercel-react-best-practices/
+└── workflows/
+    └── [Opcional: saved prompts]
 ```
 
-## 🚀 Instalación
+---
 
-```bash
-# Clonar en tu proyecto
-git clone https://github.com/tu-usuario/agent-config.git .agent
+## 📋 Mapeo de Contenido
 
-# O copiar solo la carpeta .agent a tu proyecto existente
-cp -r agent-config/.agent /tu/proyecto/
-```
+### Rules (3 archivos)
 
-## 🔧 Compatibilidad
+| Rule | .claude/ | .opencode/ | .github-copilot/ | .agent/ |
+|------|----------|------------|------------------|---------|
+| coding-style | ✅ rules/ | ✅ AGENTS.md | ✅ copilot-instructions.md | ✅ rules/ |
+| git-workflow | ✅ rules/ | ✅ AGENTS.md | ✅ copilot-instructions.md | ✅ rules/ |
+| performance | ✅ rules/ | ✅ AGENTS.md | ✅ copilot-instructions.md | ✅ rules/ |
 
-| Herramienta | Directorio |
-|-------------|-----------|
-| Claude Code | `.claude/` o `.agent/` |
-| Gemini CLI | `.gemini/` o `.agent/` |
-| Cursor | `.cursor/` o `.agent/` |
-| Copilot | `.github/copilot/` |
-| OpenCode | `.opencode/` o `.agent/` |
+### Skills (26 totales)
 
-> **Tip:** La mayoría auto-detectan `.agent/skills/`
+| Skill | .claude/ | .opencode/ | .github-copilot/ | .agent/ |
+|-------|----------|------------|------------------|---------|
+| java-coding | ✅ | ✅ | ✅ (agents) @java-backend | ✅ |
+| springboot-coding | ✅ | ✅ | ✅ (agents) @java-backend | ✅ |
+| postgres-patterns | ✅ | ✅ | ✅ (agents) @java-backend, @nodejs-backend | ✅ |
+| mongodb-patterns | ✅ | ✅ | ✅ (agents) @java-backend, @nodejs-backend | ✅ |
+| redis-patterns | ✅ | ✅ | ✅ (agents) @java-backend, @nodejs-backend | ✅ |
+| java-testing | ✅ | ✅ | ✅ (agents) @java-backend | ✅ |
+| logging | ✅ | ✅ | ✅ (agents) @java-backend | ✅ |
+| api-rest-design | ✅ | ✅ | ✅ (agents) @java-backend | ✅ |
+| tdd | ✅ | ✅ | ✅ (agents) @java-backend, @nodejs-backend | ✅ |
+| nodejs-coding | ✅ | ✅ | ✅ (agents) @nodejs-backend | ✅ |
+| react-coding | ✅ | ✅ | ✅ (agents) @react-frontend | ✅ |
+| react-testing | ✅ | ✅ | ✅ (agents) @react-frontend | ✅ |
+| frontend-patterns | ✅ | ✅ | ✅ (agents) @react-frontend | ✅ |
+| frontend-design | ✅ | ✅ | ✅ (agents) @react-frontend | ✅ |
+| e2e | ✅ | ✅ | ✅ (agents) @react-frontend | ✅ |
+| vercel-react-best-practices | ✅ | ✅ | ✅ (agents) @react-frontend | ✅ |
+| java-design-patterns | ✅ | ✅ | ✅ (agents) @architect | ✅ |
+| troubleshooting | ✅ | ✅ | ✅ (agents) @debugger | ✅ |
+| build-fix | ✅ | ✅ | ✅ (agents) @debugger | ✅ |
+| review | ✅ | ✅ | ✅ (agents) @code-review | ✅ |
+| security-check | ✅ | ✅ | ✅ (agents) @code-review | ✅ |
+| refactor | ✅ | ✅ | ✅ (agents) @code-review | ✅ |
+| docker | ✅ | ✅ | ✅ (agents) @devops | ✅ |
+| theme-factory | ✅ | ✅ | ✅ (agents) @designer | ✅ |
+| prd | ✅ | ✅ | ❌ | ✅ |
+| ralph | ✅ | ✅ | ❌ | ✅ |
 
-## 📋 Workflows Disponibles
+### Agents (10 totales)
 
-| Comando | Descripción |
-|---------|-------------|
-| `/tdd` | Desarrollo guiado por tests |
-| `/plan` | Planificar features complejas |
-| `/code-review` | Revisar código |
-| `/build-fix` | Arreglar errores de build |
-| `/refactor` | Refactorizar código |
-| `/generate-task` | Generar tarea desde descripción |
-| `/add-knowledge` | Añadir conocimiento al sistema |
+| Agente | .claude/ | .opencode/ | .github-copilot/ | .agent/ |
+|--------|----------|------------|------------------|---------|
+| architect | ✅ agents/architect.md | ✅ agents/architect.agent.md | ✅ agents/architect.agent.md | ✅ (skills) |
+| debugger | ✅ agents/debugger.md | ✅ agents/debugger.agent.md | ✅ agents/debugger.agent.md | ✅ (skills) |
+| doc-writer | ✅ agents/doc-writer.md | ✅ agents/doc-writer.agent.md | ✅ agents/doc-writer.agent.md | ✅ (skills) |
+| java-backend | ✅ (skills) | ✅ (skills) | ✅ agents/java-backend.agent.md | ✅ (skills) |
+| nodejs-backend | ✅ (skills) | ✅ (skills) | ✅ agents/nodejs-backend.agent.md | ✅ (skills) |
+| react-frontend | ✅ (skills) | ✅ (skills) | ✅ agents/react-frontend.agent.md | ✅ (skills) |
+| code-review | ✅ (skills) | ✅ (skills) | ✅ agents/code-review.agent.md | ✅ (skills) |
+| devops | ✅ (skills) | ✅ (skills) | ✅ agents/devops.agent.md | ✅ (skills) |
+| designer | ✅ (skills) | ✅ (skills) | ✅ agents/designer.agent.md | ✅ (skills) |
+| **Total Agents** | **3** | **3** | **9** | **0** |
 
-## 🤖 Agentes Especializados
-
-| Agente | Uso |
-|--------|-----|
-| **Planner** | Planificación de features |
-| **Architect** | Decisiones de arquitectura |
-| **Java Specialist** | Desarrollo Java/Spring |
-| **TDD Guide** | Tests primero |
-| **Code Reviewer** | Revisión de calidad |
-| **Security Reviewer** | Análisis de seguridad |
-| **Build Error Resolver** | Errores de compilación |
-| **Refactor Cleaner** | Limpieza de código |
-| **Task Generator** | Generar tareas |
-| **React Specialist** | Frontend React |
-| **Knowledge Updater** | Gestión de conocimiento |
-| **E2E Runner** | Tests E2E con Playwright |
-
-## ⚙️ Configuración Java
-
-El sistema está pre-configurado para proyectos Java con:
-
-- ✅ **Lombok** obligatorio (`@RequiredArgsConstructor`, `@Slf4j`, `@Builder`)
-- ✅ **MapStruct** obligatorio para mapeos Entity ↔ DTO
-- ✅ **Spring Boot 3.x** con patrones estándar
-- ✅ **TDD** con cobertura mínima 80%
-- ✅ **Redis** para caching
-
-## 📖 Uso
-
-El agente lee automáticamente `.agent/AGENTS.md` al iniciar. Este archivo define:
-
-1. **Bootstrap** - Detectar OS, cargar estado
-2. **Memory System** - CONTEXT, LEARNINGS, QUEUE, LOGS
-3. **Task Queue** - Priorización y dependencias
-4. **Recovery** - 5 niveles de auto-recuperación
-5. **Communication** - Protocolo con el usuario
-
-## 🤝 Contribuir
-
-1. Fork el repo
-2. Crea tu skill/agente en la carpeta correspondiente
-3. Sigue el formato existente (frontmatter YAML + markdown)
-4. Submit PR
-
-## 📄 Licencia
-
-MIT
-
-## 🙏 Créditos
-
-- [everything-claude-code](https://github.com/affaan-m/everything-claude-code)
-- [antigravity-awesome-skills](https://github.com/sickn33/antigravity-awesome-skills)
-- [awesome-copilot](https://github.com/github/awesome-copilot)
+**Nota:** Antigravity no usa agents explícitos. Los skills se cargan on-demand automáticamente según el contexto.
